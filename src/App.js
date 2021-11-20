@@ -85,7 +85,6 @@ function App() {
           <button onClick={sendList}>Send List</button>
         </div>
       </div>
-
     </div>
   );
 }
