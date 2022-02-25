@@ -1,12 +1,13 @@
 .App {
- display: flex;
- flex-direction: row;
- justify-content: space-evenly;
- font-family: 'Courier New', Courier, monospace;
- flex-wrap: wrap;
- background-color: #F0E7D8;
- height: 100vh;
+  --primary-color: #356859;
+  --primary-color-medium: #37966F;
+  --primary-color-light: #B9E4C9;
+  --seconday-color: #fd5523;
+  --background-color: #FFFBE6;
+  background-color: #FFFBE6;
+  height: 100%;
 }
+
 @media only screen and (max-width: 650px) {
   .groceryList{
     margin-top: 50px;
@@ -17,89 +18,31 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
-.inputField{
-  display: flex;
-  flex-direction: column;
-}
-
-.fields label{
-  margin-top: 15px;
-  font-weight: bold;
-}
-
-.fields input {
-  width: 300px;
-  height: 30px;
-  font-size: 20px;
-  padding-left: 10px;
-  margin-top: 5px;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.fields button{
-  width: 100px;
-  height: 30px;
-  margin-top: 15px;
-  font-family: 'Courier New', Courier, monospace;
-  background: #A63A50;
-  color: white;
-}
-
-.fields button:hover{
-  cursor: pointer;
-}
-
-.headings {
+.buttonsGroup{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  font-weight: bold;
+  justify-items: left;
+  justify-content: space-between;
+  width: 500px;
 }
 
 .groceryList {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 410px;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.groceryItem {
+.groceryItem{
+  margin-right: 50px;
+  margin-top: 50px;
+}
+
+.main-container{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  margin-top: 5px;
+  flex-wrap: wrap;
 }
 
-.item {
-  text-align: center;
-  width: 150px;
-}
-.amount{
-  text-align: center;
-  width: 50px;
-}
-.store{
-  text-align: center;
-  width: 150px;
-}
 
-.groceryList button{
-  width: 100px;
-  height: 30px;
-  margin-top: 15px;
-  font-family: 'Courier New', Courier, monospace;
-  background: #A63A50;
-  color: white;
-}
-
-.clearButton{
-  display: flex;
-  justify-content: space-around;
-}
-
-.clearButton button:hover{
-  cursor: pointer;
-}
