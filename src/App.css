@@ -1,17 +1,16 @@
-.App {
-  --primary-color: #356859;
-  --primary-color-medium: #37966F;
-  --primary-color-light: #B9E4C9;
-  --seconday-color: #fd5523;
-  --background-color: #FFFBE6;
-  background-color: #FFFBE6;
-  height: 100%;
+@media only screen and (max-width: 650px) {
+  .groceryItem{
+    margin-right: 10px;
+    margin-top: 30px;
+  }
 }
 
-@media only screen and (max-width: 650px) {
-  .groceryList{
-    margin-top: 50px;
-  }
+.main-container{
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  min-height: 100vh;
+  background-color: #FFFBE6;
 }
 
 .fields {
@@ -26,23 +25,31 @@
   justify-items: left;
   justify-content: space-between;
   width: 500px;
+  margin-top: 30px;
+}
+
+.groceryItemsContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .groceryList {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
 }
 
 .groceryItem{
-  margin-right: 50px;
-  margin-top: 50px;
+  margin-right: 30px;
+  margin-top: 30px;
+  background-color: #FFFBE6;
 }
 
-.main-container{
+.itemCardButtons{
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  justify-content: space-around;
 }
+
 
 

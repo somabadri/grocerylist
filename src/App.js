@@ -1,12 +1,7 @@
-import { useEffect, useState } from 'react';
 import './App.css';
-import { TextField, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions, capitalize } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import ClearAllIcon from '@mui/icons-material/ClearAll';
-import SendIcon from '@mui/icons-material/Send';
+import { capitalize } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Axios from 'axios';
-import ItemCard from './ItemCard';
+import GroceryList from './components/GroceryList'
 
 function App() {
   let theme = createTheme({
@@ -103,108 +98,119 @@ function App() {
     { amount: 3, store: "Store 3", item: "Item 3" },
     { amount: 3, store: "Store 3", item: "Item 3" },
     { amount: 3, store: "Store 3", item: "Item 3" },
+    { amount: 3, store: "Store 3", item: "Item 3" },
+    { amount: 3, store: "Store 3", item: "Item 3" },
+    { amount: 3, store: "Store 3", item: "Item 3" },
   ]
 
-  const addItem = () => {
-    Axios.post('https://grocerylist-maker.herokuapp.com/create', {
-      item: item,
-      amount: amount,
-      store: store
-    }).then(() => {
-      console.log("success");
-      getItems();
-      setItem("");
-      setAmount("");
-      setStore("");
-    })
-  };
+  // https://grocerylist-maker.herokuapp.com/
+  // function addItem(){
+  //   Axios.post('http://localhost:3001/create', {
+  //     item: item,
+  //     amount: amount,
+  //     store: store
+  //   }).then(() => {
+  //     console.log("success");
+  //     getItems();
+  //     setItem("");
+  //     setAmount("");
+  //     setStore("");
+  //     handleClose();
+  //   })
+  // };
 
-  const getItems = () => {
-    Axios.get('https://grocerylist-maker.herokuapp.com/items').then((response) => {
-      setItemList(response.data);
-    })
-  };
+  // function getItems(){
+  //   Axios.get('http://localhost:3001/items').then((response) => {
+  //     setItemList(response.data);
+  //   })
+  // };
 
-  const emptyList = () => {
-    Axios.delete('https://grocerylist-maker.herokuapp.com/clear').then(() => {
-      console.log("cleared");
-    })
-  };
-  const sendList = () => {
-    Axios.post('https://grocerylist-maker.herokuapp.com/send', itemList).then(() => {
-      console.log("sent items");
-    })
-  };
+  // function emptyList(){
+  //   Axios.delete('http://localhost:3001/clear').then(() => {
+  //     console.log("cleared");
+  //   })
+  // };
 
-  useEffect(() => {
-    // getItems();
-  });
+  // function sendList(){
+  //   Axios.post('http://localhost:3001/send', itemList).then(() => {
+  //     console.log("sent items");
+  //   })
+  // };
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [item, setItem] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [store, setStore] = useState("");
-  const [itemList, setItemList] = useState([]);
+  // useEffect(() => {
+  //    getItems();
+  // });
+
+  // const [open, setOpen] = useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+  // const [item, setItem] = useState("");
+  // const [amount, setAmount] = useState(0);
+  // const [store, setStore] = useState("");
+  // const [itemList, setItemList] = useState([]);
 
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <Typography variant="h1" color="secondary">
-          Welcome Soma!
-        </Typography>
-        <div className="buttonsGroup">
-          <Button className="buttonInsideGroup" variant="contained" onClick={handleOpen} startIcon={<AddIcon />}>Add Item</Button>
-          <Button className="buttonInsideGroup" variant="contained" onClick={emptyList} startIcon={<ClearAllIcon />}>Clear List</Button>
-          <Button className="buttonInsideGroup" variant="contained" onClick={sendList} startIcon={<SendIcon />} >Send List</Button>
-        </div>
+        <GroceryList/>
+      </div>
+      {/* <div className="App">
         <div className='main-container'>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Add Item</DialogTitle>
-            <DialogContent>
-              <div className="fields">
-                <TextField
-                  label="Item"
-                  variant="outlined"
-                  margin="dense"
-                  type="text"
-                  onChange={(event) => {
-                    setItem(event.target.value)
-                  }} />
-                <TextField
-                  label="Amount"
-                  type="number"
-                  margin="dense"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  onChange={(event) => {
-                    setAmount(event.target.value)
-                  }} />
-                <TextField label="Store"
-                  variant="outlined"
-                  type="text"
-                  margin="dense"
-                  onChange={(event) => {
-                    setStore(event.target.value)
-                  }} />
-              </div>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={addItem} variant="contained" >Add Item</Button>
-            </DialogActions>
-          </Dialog>
-          <div className="groceryList">
-            {itemListMock.map((val, key) => {
-              return <div className="groceryItem">
-                <ItemCard item={val.item} amount={val.amount} store={val.store} />
-              </div>
-            })}
+          <Typography variant="h1" color="secondary">
+            Welcome Soma!
+          </Typography>
+          <div className="buttonsGroup">
+            <Button className="buttonInsideGroup" variant="contained" onClick={handleOpen} startIcon={<AddIcon />}>Add Item</Button>
+            <Button className="buttonInsideGroup" variant="contained" onClick={emptyList} startIcon={<ClearAllIcon />}>Clear List</Button>
+            <Button className="buttonInsideGroup" variant="contained" onClick={() => sendList} startIcon={<SendIcon />} >Send List</Button>
+          </div>
+          <div className='groceryItemsContainer'>
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>Add Item</DialogTitle>
+              <DialogContent>
+                <div className="fields">
+                  <TextField
+                    label="Item"
+                    variant="outlined"
+                    margin="dense"
+                    type="text"
+                    onChange={(event) => {
+                      setItem(event.target.value)
+                    }} />
+                  <TextField
+                    label="Amount"
+                    type="number"
+                    margin="dense"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={(event) => {
+                      setAmount(event.target.value)
+                    }} />
+                  <TextField label="Store"
+                    variant="outlined"
+                    type="text"
+                    margin="dense"
+                    onChange={(event) => {
+                      setStore(event.target.value)
+                    }} />
+                </div>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => addItem()} variant="contained" >Add Item</Button>
+              </DialogActions>
+            </Dialog>
+            <div className="groceryList">
+              {itemList.map((val, key) => {
+                return <div className="groceryItem">
+                  <ItemCard id={val.id} item={val.item} amount={val.amount} store={val.store} />
+                </div>
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </ThemeProvider>
   );
 }
