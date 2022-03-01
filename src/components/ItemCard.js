@@ -62,7 +62,7 @@ class ItemCard extends Component {
                     <DialogContent>
                         <div className="fields">
                             <Typography variant="body1">
-                                Calories: {this.state.nutritionList.ENERC_KCAL} g
+                                Calories: {this.state.nutritionList.ENERC_KCAL}
                             </Typography>
                             <Typography variant="body1">
                                 Carbs: {this.state.nutritionList.CHOCDF} g

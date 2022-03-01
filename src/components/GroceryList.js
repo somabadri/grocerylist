@@ -5,6 +5,8 @@ import ClearAllIcon from '@mui/icons-material/ClearAll';
 import SendIcon from '@mui/icons-material/Send';
 import Axios from 'axios';
 import ItemCard from './ItemCard';
+import {update} from '../actions';
+import { connect } from "react-redux";
 
 
 class GroceryList extends Component {
@@ -12,10 +14,10 @@ class GroceryList extends Component {
         super(props);
         this.state = {
             open: false,
-            item: '',
-            amount: '',
-            store: '',
-            itemList: [],
+            // item: '',
+            // amount: '',
+            // store: '',
+            // itemList: [],
         };
     };
 
@@ -24,19 +26,19 @@ class GroceryList extends Component {
     }
 
     handleClose = () => this.setState({ open: false });
-    setStore = (store) => this.setState({ store: store });
-    setAmount = (amount) => this.setState({ amount: amount });
-    setItem = (item) => this.setState({ item: item });
-    setItemList = (itemList) => this.setState({ itemList: itemList });
+    // setStore = (store) => this.setState({ store: store });
+    // setAmount = (amount) => this.setState({ amount: amount });
+    // setItem = (item) => this.setState({ item: item });
+    // setItemList = (itemList) => this.setState({ itemList: itemList });
 
     addItem = () => {
-        if (this.state.item === "" || this.state.amount === 0 || this.state.store === "") {
+        if (this.props.item === "" || this.props.amount === "" || this.props.store === "") {
             return;
         }
         Axios.post('http://localhost:3001/create', {
-            item: this.state.item,
-            amount: this.state.amount,
-            store: this.state.store
+            item: this.props.item,
+            amount: this.props.amount,
+            store: this.props.store
         }).then(() => {
             console.log("success");
             this.clearFields();
@@ -46,9 +48,9 @@ class GroceryList extends Component {
     };
 
     clearFields = () => {
-        this.setItem("");
-        this.setAmount("");
-        this.setStore("");
+        this.props.update('ITEM', "");
+        this.props.update('AMOUNT', "");
+        this.props.update('STORE', "");
     }
 
     deleteItem = (id) => {
@@ -66,7 +68,7 @@ class GroceryList extends Component {
 
     getItems = () => {
         Axios.get('http://localhost:3001/items').then((response) => {
-            this.setItemList(response.data);
+            this.props.update('ITEMLIST', response.data)
             console.log("got items");
         })
     };
@@ -127,7 +129,7 @@ class GroceryList extends Component {
                                 margin="dense"
                                 type="text"
                                 onChange={(event) => {
-                                    this.setItem(event.target.value)
+                                    this.props.update('ITEM', event.target.value)
                                 }} />
                             <TextField
                                 label="Amount"
@@ -138,14 +140,14 @@ class GroceryList extends Component {
                                 }}
                                 variant="outlined"
                                 onChange={(event) => {
-                                    this.setAmount(event.target.value)
+                                    this.props.update('AMOUNT', event.target.value)
                                 }} />
                             <TextField label="Store"
                                 variant="outlined"
                                 type="text"
                                 margin="dense"
                                 onChange={(event) => {
-                                    this.setStore(event.target.value)
+                                    this.props.update('STORE', event.target.value)
                                 }} />
                         </div>
                     </DialogContent>
@@ -154,15 +156,15 @@ class GroceryList extends Component {
                     </DialogActions>
                 </Dialog>
                 <div className="groceryList">
-                    {this.state.itemList.map((val, key) => {
+                    {this.props.itemList.map((val, key) => {
                         return <div className="groceryItem">
                             <ItemCard 
                             deleteItem={() => this.deleteItem(val.id)} 
                             id={val.id} 
                             item={val.item} 
                             amount={val.amount} 
-                            store={val.store} 
-                             />
+                            store={val.store}
+                            />
                         </div>
                     })}
                 </div>
@@ -172,4 +174,22 @@ class GroceryList extends Component {
 
 }
 
-export default GroceryList;
+// Function to map the state to props  
+function mapStateToProps(state) {
+    return {
+        item : state.item,
+        amount : state.amount,
+        store : state.store,
+        itemList: state.itemList,
+    };
+}
+
+// Function to map the actions to props 
+const mapDispatchToProps = (dispatch) => {
+    return {
+      update: (field, value) => dispatch(update(field, value)),
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(GroceryList);
