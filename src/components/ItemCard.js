@@ -19,7 +19,7 @@ class ItemCard extends Component {
     }
 
     getNutrition = (food) => {
-        Axios.get('http://localhost:3001/nutrition',
+        Axios.get('https://grocerylist-maker.herokuapp.com/nutrition',
             {
                 params: {
                     food: food
