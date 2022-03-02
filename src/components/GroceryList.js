@@ -35,7 +35,7 @@ class GroceryList extends Component {
         if (this.props.item === "" || this.props.amount === "" || this.props.store === "") {
             return;
         }
-        Axios.post('http://localhost:3001/create', {
+        Axios.post('https://grocerylist-maker.herokuapp.com/create', {
             item: this.props.item,
             amount: this.props.amount,
             store: this.props.store
@@ -55,7 +55,7 @@ class GroceryList extends Component {
 
     deleteItem = (id) => {
         console.log("Delete Function: " + id);
-        Axios.delete('http://localhost:3001/delete', {
+        Axios.delete('https://grocerylist-maker.herokuapp.com/delete', {
             data: {
                 id: id
             }
@@ -67,14 +67,14 @@ class GroceryList extends Component {
     };
 
     getItems = () => {
-        Axios.get('http://localhost:3001/items').then((response) => {
+        Axios.get('https://grocerylist-maker.herokuapp.com/items').then((response) => {
             this.props.update('ITEMLIST', response.data)
             console.log("got items");
         })
     };
 
     emptyList = () => {
-        Axios.delete('http://localhost:3001/clear').then(() => {
+        Axios.delete('https://grocerylist-maker.herokuapp.com/clear').then(() => {
             console.log("cleared");
             this.getItems();
             this.clearFields();
@@ -83,7 +83,7 @@ class GroceryList extends Component {
 
     // getNutrition = (food) => {
     //     console.log(food);
-    //     Axios.get('http://localhost:3001/nutrition',
+    //     Axios.get('https://grocerylist-maker.herokuapp.com/nutrition',
     //         {
     //             params: {
     //                 food: food
@@ -98,7 +98,7 @@ class GroceryList extends Component {
     // };
 
     sendList = () => {
-        Axios.post('http://localhost:3001/send', this.props.itemList).then(() => {
+        Axios.post('https://grocerylist-maker.herokuapp.com/send', this.props.itemList).then(() => {
             console.log("sent items");
         })
     };
