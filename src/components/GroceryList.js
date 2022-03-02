@@ -98,7 +98,7 @@ class GroceryList extends Component {
     // };
 
     sendList = () => {
-        Axios.post('http://localhost:3001/send', this.state.itemList).then(() => {
+        Axios.post('http://localhost:3001/send', this.props.itemList).then(() => {
             console.log("sent items");
         })
     };
